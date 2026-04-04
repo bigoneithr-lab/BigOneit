@@ -29,7 +29,26 @@ import { GoogleGenAI } from "@google/genai";
 const Logo = ({ className = "" }: { className?: string }) => (
   <div className={`flex items-center gap-2 ${className}`}>
     <div className="relative flex items-center">
-      <span className="text-2xl font-display font-bold tracking-tight text-brand-600">BigOneIT</span>
+      <span className="text-2xl font-display font-bold tracking-tight text-brand-600 mr-1">BIG</span>
+      <div className="relative px-2 py-1">
+        {/* The Swoosh - Refined to match the logo image */}
+        <svg className="absolute inset-0 w-full h-full -z-10 overflow-visible" viewBox="0 0 100 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path 
+            d="M5 32C5 32 15 5 75 5C95 5 98 22 85 32C70 42 10 42 5 32Z" 
+            className="stroke-[3.5]"
+            stroke="url(#logo-gradient)"
+            strokeLinecap="round"
+          />
+          <defs>
+            <linearGradient id="logo-gradient" x1="0" y1="20" x2="100" y2="20" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#d81b60" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span className="text-2xl font-display font-bold tracking-tight text-brand-600">ONE</span>
+      </div>
+      <span className="text-2xl font-display font-bold tracking-tight text-brand-600 ml-1">IT</span>
     </div>
   </div>
 );
