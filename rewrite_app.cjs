@@ -1,4 +1,6 @@
-import { motion, AnimatePresence } from "motion/react";
+const fs = require('fs');
+
+const appContent = `import { motion, AnimatePresence } from "motion/react";
 import { 
   ArrowRight, 
   Menu, 
@@ -24,7 +26,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { GoogleGenAI } from "@google/genai";
 
 const Logo = ({ className = "" }: { className?: string }) => (
-  <div className={`flex items-center gap-2 ${className}`}>
+  <div className={\`flex items-center gap-2 \${className}\`}>
     <div className="relative flex items-center">
       <span className="text-2xl font-display font-bold tracking-tight text-brand-600">BigOneIT</span>
     </div>
@@ -42,7 +44,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white shadow-md py-4" : "bg-white py-6"}`}>
+    <nav className={\`fixed top-0 left-0 right-0 z-50 transition-all duration-300 \${scrolled ? "bg-white shadow-md py-4" : "bg-white py-6"}\`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Logo />
@@ -51,7 +53,7 @@ const Navbar = () => {
             {["Solutions", "Services", "Resources", "About Us"].map((item) => (
               <a 
                 key={item} 
-                href={`#${item.toLowerCase().replace(" ", "-")}`} 
+                href={\`#\${item.toLowerCase().replace(" ", "-")}\`} 
                 className="text-sm font-bold text-slate-700 hover:text-brand-600 transition-colors"
               >
                 {item}
@@ -84,7 +86,7 @@ const Navbar = () => {
             {["Solutions", "Services", "Resources", "About Us"].map((item) => (
               <a 
                 key={item} 
-                href={`#${item.toLowerCase().replace(" ", "-")}`} 
+                href={\`#\${item.toLowerCase().replace(" ", "-")}\`} 
                 className="block text-base font-bold text-slate-700 py-2"
                 onClick={() => setIsOpen(false)}
               >
@@ -175,7 +177,7 @@ const Suites = () => {
               transition={{ delay: i * 0.1 }}
               className="group p-8 rounded-3xl border border-slate-200 hover:border-brand-300 hover:shadow-xl transition-all cursor-pointer bg-white"
             >
-              <div className={`w-16 h-16 rounded-2xl ${suite.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+              <div className={\`w-16 h-16 rounded-2xl \${suite.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform\`}>
                 {suite.icon}
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">{suite.title}</h3>
@@ -418,7 +420,7 @@ const AIAssistant = () => {
       const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
       const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
-        contents: `User: ${userMsg}\n\nContext: You are a helpful assistant for BigOneITLLC, a premier global technology partner. We specialize in enterprise-grade Software Development, strategic Cloud Consulting, scalable IT Outsourcing, Creative & Design, and B2B Leads Generation. Keep your answers concise, professional, and encourage users to schedule a strategic discovery call.`,
+        contents: \`User: \${userMsg}\\n\\nContext: You are a helpful assistant for BigOneITLLC, a premier global technology partner. We specialize in enterprise-grade Software Development, strategic Cloud Consulting, scalable IT Outsourcing, Creative & Design, and B2B Leads Generation. Keep your answers concise, professional, and encourage users to schedule a strategic discovery call.\`,
       });
       
       setMessages(prev => [...prev, { 
@@ -441,7 +443,7 @@ const AIAssistant = () => {
       <motion.div
         initial={false}
         animate={isOpen ? { scale: 1, opacity: 1, y: 0 } : { scale: 0.8, opacity: 0, y: 20 }}
-        className={`absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+        className={\`absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col \${isOpen ? "pointer-events-auto" : "pointer-events-none"}\`}
       >
         <div className="bg-brand-600 p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -460,12 +462,12 @@ const AIAssistant = () => {
 
         <div ref={scrollRef} className="flex-1 h-80 overflow-y-auto p-4 space-y-4 bg-slate-50">
           {messages.map((msg, i) => (
-            <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-              <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+            <div key={i} className={\`flex \${msg.role === "user" ? "justify-end" : "justify-start"}\`}>
+              <div className={\`max-w-[80%] p-3 rounded-2xl text-sm \${
                 msg.role === "user" 
                   ? "bg-brand-600 text-white rounded-tr-none" 
                   : "bg-white text-slate-700 shadow-sm border border-slate-100 rounded-tl-none"
-              }`}>
+              }\`}>
                 {msg.text}
               </div>
             </div>
@@ -542,3 +544,6 @@ export default function App() {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/App.tsx', appContent);
