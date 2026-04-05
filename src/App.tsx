@@ -21,10 +21,26 @@ import {
   BookOpen,
   Video,
   MonitorSmartphone,
-  Shield
+  Shield,
+  Star,
+  TrendingUp,
+  CheckCircle2,
+  Quote
 } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import { GoogleGenAI } from "@google/genai";
+
+const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 0.6, delay }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
 
 const Logo = ({ className = "" }: { className?: string }) => (
   <div className={`flex items-center gap-2 ${className}`}>
@@ -730,62 +746,96 @@ const ContactUs = () => {
   return (
     <section id="contact-us" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <FadeIn className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl font-display font-extrabold text-slate-900 mb-6">Get in Touch</h2>
           <p className="text-xl text-slate-600">Have a question or want to learn more about our services? We'd love to hear from you.</p>
-        </div>
-        <div className="max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
-          {isSubmitted ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h3>
-              <p className="text-slate-600">Thank you for contacting us. We will get back to you shortly.</p>
-              <button 
-                onClick={() => setIsSubmitted(false)}
-                className="mt-8 text-brand-600 font-bold hover:underline"
-              >
-                Send another message
-              </button>
-            </div>
-          ) : (
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">First Name</label>
-                  <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required disabled={isSubmitting} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="John" />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Last Name</label>
-                  <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required disabled={isSubmitting} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="Doe" />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} required disabled={isSubmitting} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="john@example.com" />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">Message</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} required disabled={isSubmitting} rows={4} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="How can we help you?"></textarea>
-              </div>
-              <button type="submit" disabled={isSubmitting} className="w-full bg-brand-600 text-white font-bold py-4 rounded-lg hover:bg-brand-700 transition-colors disabled:bg-brand-400 flex items-center justify-center gap-2">
-                {isSubmitting ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </FadeIn>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <FadeIn delay={0.1}>
+            <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+              {isSubmitted ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    Sending...
-                  </>
-                ) : (
-                  'Send Message'
-                )}
-              </button>
-            </form>
-          )}
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h3>
+                  <p className="text-slate-600">Thank you for contacting us. We will get back to you shortly.</p>
+                  <button 
+                    onClick={() => setIsSubmitted(false)}
+                    className="mt-8 text-brand-600 font-bold hover:underline"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-2">First Name</label>
+                      <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required disabled={isSubmitting} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="John" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-2">Last Name</label>
+                      <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required disabled={isSubmitting} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="Doe" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} required disabled={isSubmitting} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="john@example.com" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">Message</label>
+                    <textarea name="message" value={formData.message} onChange={handleChange} required disabled={isSubmitting} rows={4} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600 disabled:opacity-50" placeholder="How can we help you?"></textarea>
+                  </div>
+                  <button type="submit" disabled={isSubmitting} className="w-full bg-brand-600 text-white font-bold py-4 rounded-lg hover:bg-brand-700 transition-colors disabled:bg-brand-400 flex items-center justify-center gap-2">
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
+          </FadeIn>
+          
+          <FadeIn delay={0.2} className="h-full">
+            <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden h-full min-h-[400px] relative">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1d3153.019284181822!2d-122.4013233235773!3d37.78967197198162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858062f6b8641b%3A0x633d26f0d98f7c9e!2sSalesforce%20Tower!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0, position: 'absolute', top: 0, left: 0 }} 
+                allowFullScreen={false} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Office Location"
+              ></iframe>
+              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-slate-100">
+                <h4 className="font-bold text-slate-900 mb-2">Global Headquarters</h4>
+                <p className="text-sm text-slate-600 mb-4">415 Mission St, San Francisco, CA 94105</p>
+                <div className="flex flex-col gap-2 text-sm">
+                  <a href="tel:+18005550199" className="text-brand-600 font-bold hover:underline flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                    +1 (800) 555-0199
+                  </a>
+                  <a href="mailto:bigoneithr@gmail.com" className="text-brand-600 font-bold hover:underline flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    bigoneithr@gmail.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </section>
@@ -841,6 +891,150 @@ const LoginModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
   );
 };
 
+const CaseStudies = () => {
+  const cases = [
+    {
+      title: "Global Cloud Migration",
+      client: "FinTech Solutions Inc.",
+      industry: "Financial Services",
+      challenge: "Legacy on-premise infrastructure was causing slow transaction times, frequent downtime, and high maintenance costs.",
+      solution: "Migrated 100% of their core systems to a highly available, multi-region cloud architecture using AWS.",
+      impact: "Reduced operational costs by 35%, improved transaction speed by 3x, and achieved 99.99% uptime.",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      title: "Enterprise Cybersecurity Overhaul",
+      client: "HealthCare Plus",
+      industry: "Healthcare",
+      challenge: "Vulnerable to ransomware attacks with outdated security protocols and non-compliant data storage.",
+      solution: "Implemented a Zero Trust security model, end-to-end encryption, and automated threat detection systems.",
+      impact: "Zero security breaches in 2 years, 100% HIPAA compliance, and a 60% reduction in false-positive alerts.",
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
+    }
+  ];
+
+  return (
+    <section id="case-studies" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-brand-600 font-bold tracking-wide uppercase text-sm mb-3">Case Studies</h2>
+          <h3 className="text-4xl font-display font-extrabold text-slate-900 mb-6">Proven Results, Real Impact</h3>
+          <p className="text-xl text-slate-600">See how we've helped industry leaders overcome their biggest technological challenges.</p>
+        </div>
+        
+        <div className="space-y-16">
+          {cases.map((study, index) => (
+            <div key={index} className={`flex flex-col lg:flex-row gap-12 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+              <div className="w-full lg:w-1/2">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-video">
+                  <img src={study.image} alt={study.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <span className="bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">{study.industry}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full lg:w-1/2 space-y-6">
+                <div>
+                  <h4 className="text-3xl font-bold text-slate-900 mb-2">{study.title}</h4>
+                  <p className="text-lg font-medium text-brand-600">{study.client}</p>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <h5 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                      <Shield className="w-5 h-5 text-rose-500" /> The Challenge
+                    </h5>
+                    <p className="text-slate-600">{study.challenge}</p>
+                  </div>
+                  
+                  <div className="bg-brand-50 p-6 rounded-2xl border border-brand-100">
+                    <h5 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                      <TrendingUp className="w-5 h-5 text-brand-600" /> The Impact
+                    </h5>
+                    <p className="text-slate-600">{study.impact}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Testimonials = () => {
+  const testimonials = [
+    {
+      quote: "BIG ONE IT completely transformed our infrastructure. We've seen a 40% increase in system performance and zero downtime since partnering with them. Their team is incredibly responsive and knowledgeable.",
+      author: "Sarah Jenkins",
+      role: "CTO",
+      company: "TechFlow Inc.",
+      rating: 5,
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80"
+    },
+    {
+      quote: "The cybersecurity overhaul they implemented saved us from a major ransomware attempt. I sleep much better at night knowing BIG ONE IT is monitoring our networks 24/7.",
+      author: "Michael Chen",
+      role: "Director of Operations",
+      company: "HealthCare Plus",
+      rating: 5,
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80"
+    },
+    {
+      quote: "We needed a custom enterprise application built from scratch in record time. Not only did they deliver ahead of schedule, but the UI/UX is flawless. Highly recommended.",
+      author: "Elena Rodriguez",
+      role: "VP of Product",
+      company: "Global Finance Corp",
+      rating: 5,
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80"
+    }
+  ];
+
+  return (
+    <section id="testimonials" className="py-24 bg-slate-900 text-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-brand-600/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-rose-600/20 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-brand-400 font-bold tracking-wide uppercase text-sm mb-3">Client Success Stories</h2>
+          <h3 className="text-4xl font-display font-extrabold mb-6">Don't Just Take Our Word For It</h3>
+          <p className="text-xl text-slate-300">Hear from the innovative companies that trust BIG ONE IT to power their digital transformation.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700 relative">
+              <Quote className="absolute top-6 right-6 w-10 h-10 text-slate-700 opacity-50" />
+              
+              <div className="flex gap-1 mb-6">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              
+              <p className="text-lg text-slate-300 mb-8 italic">"{testimonial.quote}"</p>
+              
+              <div className="flex items-center gap-4 mt-auto">
+                <img src={testimonial.image} alt={testimonial.author} className="w-12 h-12 rounded-full object-cover border-2 border-slate-700" referrerPolicy="no-referrer" />
+                <div>
+                  <h4 className="font-bold text-white">{testimonial.author}</h4>
+                  <p className="text-sm text-slate-400">{testimonial.role}, {testimonial.company}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export default function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
@@ -849,14 +1043,16 @@ export default function App() {
       <Navbar onLoginClick={() => setIsLoginOpen(true)} />
       <main>
         <Hero />
-        <Suites />
-        <AboutUs />
-        <Roles />
-        <Services />
-        <Insights />
-        <Careers />
+        <FadeIn><Suites /></FadeIn>
+        <FadeIn><AboutUs /></FadeIn>
+        <FadeIn><Roles /></FadeIn>
+        <FadeIn><Services /></FadeIn>
+        <FadeIn><CaseStudies /></FadeIn>
+        <FadeIn><Testimonials /></FadeIn>
+        <FadeIn><Insights /></FadeIn>
+        <FadeIn><Careers /></FadeIn>
         <ContactUs />
-        <CTA />
+        <FadeIn><CTA /></FadeIn>
       </main>
       <Footer />
       <AIAssistant />
