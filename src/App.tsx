@@ -53,7 +53,7 @@ const Logo = ({ className = "" }: { className?: string }) => (
   </div>
 );
 
-const Navbar = () => {
+const Navbar = ({ onLoginClick }: { onLoginClick: () => void }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -80,10 +80,10 @@ const Navbar = () => {
               </a>
             ))}
             <div className="flex items-center gap-4 ml-4 border-l border-slate-200 pl-8">
-              <button className="text-slate-600 hover:text-brand-600 font-bold text-sm">Log In</button>
-              <button className="bg-brand-600 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-brand-700 transition-all">
+              <button onClick={onLoginClick} className="text-slate-600 hover:text-brand-600 font-bold text-sm">Log In</button>
+              <a href="#contact-us" className="bg-brand-600 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-brand-700 transition-all">
                 Contact Us
-              </button>
+              </a>
             </div>
           </div>
 
@@ -114,10 +114,10 @@ const Navbar = () => {
               </a>
             ))}
             <div className="pt-4 border-t border-slate-100 flex flex-col gap-3">
-              <button className="w-full text-center text-slate-600 font-bold py-2">Log In</button>
-              <button className="w-full bg-brand-600 text-white px-5 py-3 rounded-full text-sm font-bold">
+              <button onClick={() => { onLoginClick(); setIsOpen(false); }} className="w-full text-center text-slate-600 font-bold py-2">Log In</button>
+              <a href="#contact-us" onClick={() => setIsOpen(false)} className="w-full text-center block bg-brand-600 text-white px-5 py-3 rounded-full text-sm font-bold">
                 Contact Us
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
@@ -426,9 +426,9 @@ const CTA = () => {
         <p className="text-xl text-brand-100 mb-10 max-w-2xl mx-auto">
           Ready to simplify your enterprise technology operations? Contact our team today to schedule a personalized demo.
         </p>
-        <button className="bg-white text-brand-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl">
+        <a href="#contact-us" className="inline-block bg-white text-brand-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-xl">
           Contact Sales
-        </button>
+        </a>
       </div>
     </section>
   );
@@ -455,9 +455,9 @@ const Footer = () => {
           <div>
             <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Company</h4>
             <ul className="space-y-3 text-slate-400">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+              <li><a href="#about-us" className="hover:text-white transition-colors">About Us</a></li>
               <li><a href="#careers" className="hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="#contact-us" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
           <div>
@@ -623,21 +623,151 @@ const AIAssistant = () => {
   );
 };
 
+const AboutUs = () => {
+  return (
+    <section id="about-us" className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-4xl font-display font-extrabold text-slate-900 mb-6">About BigOneIT</h2>
+            <p className="text-xl text-slate-600 mb-6">
+              We are a premier global technology partner dedicated to simplifying the complex work of running enterprise operations. Since our founding, we have been committed to delivering excellence in software development, cloud infrastructure, and IT outsourcing.
+            </p>
+            <p className="text-lg text-slate-600 mb-8">
+              Our team of world-class engineers, designers, and strategists work tirelessly to build solutions that drive growth, enhance security, and empower organizations worldwide.
+            </p>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <h4 className="text-3xl font-extrabold text-brand-600 mb-2">10+</h4>
+                <p className="text-slate-600 font-bold">Years of Experience</p>
+              </div>
+              <div>
+                <h4 className="text-3xl font-extrabold text-brand-600 mb-2">500+</h4>
+                <p className="text-slate-600 font-bold">Global Clients</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Our Team" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            </div>
+            <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-brand-400/20 rounded-full blur-3xl -z-10"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ContactUs = () => {
+  return (
+    <section id="contact-us" className="py-24 bg-slate-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <h2 className="text-4xl font-display font-extrabold text-slate-900 mb-6">Get in Touch</h2>
+          <p className="text-xl text-slate-600">Have a question or want to learn more about our services? We'd love to hear from you.</p>
+        </div>
+        <div className="max-w-2xl mx-auto bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+          <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Thank you for contacting us! We will get back to you soon.'); }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">First Name</label>
+                <input type="text" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600" placeholder="John" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">Last Name</label>
+                <input type="text" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600" placeholder="Doe" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
+              <input type="email" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600" placeholder="john@example.com" />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Message</label>
+              <textarea required rows={4} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600" placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" className="w-full bg-brand-600 text-white font-bold py-4 rounded-lg hover:bg-brand-700 transition-colors">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const LoginModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden relative"
+      >
+        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+          <X className="w-6 h-6" />
+        </button>
+        <div className="p-8">
+          <div className="mb-8 text-center">
+            <Logo className="justify-center mb-4" />
+            <h3 className="text-2xl font-bold text-slate-900">Welcome Back</h3>
+            <p className="text-slate-500 mt-2">Log in to your BigOneIT account</p>
+          </div>
+          <form className="space-y-5" onSubmit={(e) => { e.preventDefault(); alert('Login functionality will be implemented soon!'); onClose(); }}>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Email</label>
+              <input type="email" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600" placeholder="name@company.com" />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Password</label>
+              <input type="password" required className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-600" placeholder="••••••••" />
+            </div>
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" className="rounded text-brand-600 focus:ring-brand-600" />
+                <span className="text-sm text-slate-600">Remember me</span>
+              </label>
+              <a href="#" className="text-sm font-bold text-brand-600 hover:underline">Forgot password?</a>
+            </div>
+            <button type="submit" className="w-full bg-brand-600 text-white font-bold py-3.5 rounded-lg hover:bg-brand-700 transition-colors">
+              Log In
+            </button>
+          </form>
+          <div className="mt-6 text-center">
+            <p className="text-sm text-slate-600">Don't have an account? <a href="#contact-us" onClick={onClose} className="font-bold text-brand-600 hover:underline">Contact Sales</a></p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 export default function App() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-brand-200 selection:text-brand-900">
-      <Navbar />
+      <Navbar onLoginClick={() => setIsLoginOpen(true)} />
       <main>
         <Hero />
         <Suites />
+        <AboutUs />
         <Roles />
         <Services />
         <Insights />
         <Careers />
+        <ContactUs />
         <CTA />
       </main>
       <Footer />
       <AIAssistant />
+      <AnimatePresence>
+        {isLoginOpen && <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />}
+      </AnimatePresence>
     </div>
   );
 }
