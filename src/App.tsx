@@ -158,7 +158,7 @@ const Hero = () => {
             className="relative"
           >
             <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative">
-              <img src="https://picsum.photos/seed/enterprise/1200/900" alt="Enterprise Technology" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Enterprise Technology" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               <div className="absolute inset-0 bg-brand-900/10 mix-blend-multiply"></div>
             </div>
             {/* Decorative elements */}
@@ -296,9 +296,9 @@ const Services = () => {
 
 const Insights = () => {
   const insights = [
-    { type: "Webinar", title: "Built to Last: Sustainable Technology Teams for 2026", date: "Available On-Demand", image: "https://picsum.photos/seed/webinar1/600/400" },
-    { type: "Article", title: "The Technology AI Assistant Built for Enterprise IT", date: "Read Now", image: "https://picsum.photos/seed/article1/600/400" },
-    { type: "Webinar", title: "Designing a Smooth Launch for Your Next Big Release", date: "Upcoming: Nov 15", image: "https://picsum.photos/seed/webinar2/600/400" }
+    { type: "Webinar", title: "Built to Last: Sustainable Technology Teams for 2026", date: "Available On-Demand", image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" },
+    { type: "Article", title: "The Technology AI Assistant Built for Enterprise IT", date: "Read Now", image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" },
+    { type: "Webinar", title: "Designing a Smooth Launch for Your Next Big Release", date: "Upcoming: Nov 15", image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" }
   ];
 
   return (
