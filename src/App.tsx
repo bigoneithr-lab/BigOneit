@@ -25,7 +25,10 @@ import {
   Star,
   TrendingUp,
   CheckCircle2,
-  Quote
+  Quote,
+  Plus,
+  Minus,
+  Mail
 } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import { GoogleGenAI } from "@google/genai";
@@ -811,7 +814,7 @@ const ContactUs = () => {
           <FadeIn delay={0.2} className="h-full">
             <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden h-full min-h-[400px] relative">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m3!1d3153.019284181822!2d-122.4013233235773!3d37.78967197198162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858062f6b8641b%3A0x633d26f0d98f7c9e!2sSalesforce%20Tower!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                src="https://maps.google.com/maps?width=100%25&height=100%25&hl=en&q=415%20Mission%20St,%20San%20Francisco,%20CA%2094105+(BIG%20ONE%20IT)&t=&z=14&ie=UTF8&iwloc=B&output=embed" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0, position: 'absolute', top: 0, left: 0 }} 
@@ -824,10 +827,6 @@ const ContactUs = () => {
                 <h4 className="font-bold text-slate-900 mb-2">Global Headquarters</h4>
                 <p className="text-sm text-slate-600 mb-4">415 Mission St, San Francisco, CA 94105</p>
                 <div className="flex flex-col gap-2 text-sm">
-                  <a href="tel:+18005550199" className="text-brand-600 font-bold hover:underline flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                    +1 (800) 555-0199
-                  </a>
                   <a href="mailto:bigoneithr@gmail.com" className="text-brand-600 font-bold hover:underline flex items-center gap-2">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                     bigoneithr@gmail.com
@@ -1035,6 +1034,152 @@ const Testimonials = () => {
   );
 };
 
+const FAQ = () => {
+  const faqs = [
+    {
+      question: "What is your pricing structure?",
+      answer: "We offer flexible pricing models tailored to your specific needs. This includes project-based fixed pricing for well-defined scopes, and retainer models for ongoing support and maintenance. Contact us for a custom quote."
+    },
+    {
+      question: "How does your onboarding process work?",
+      answer: "Our onboarding is designed to be seamless. We start with a comprehensive discovery phase to understand your infrastructure, followed by a detailed roadmap, secure credential transfer, and a kickoff meeting with your dedicated account manager."
+    },
+    {
+      question: "What are your support response times?",
+      answer: "For critical issues, we guarantee a response time of under 15 minutes, 24/7/365. Standard inquiries are addressed within 2-4 hours during regular business hours."
+    },
+    {
+      question: "Do you offer custom software development?",
+      answer: "Yes, our team of expert engineers builds scalable, secure, and high-performance custom applications tailored to your unique business requirements, from web apps to enterprise software."
+    },
+    {
+      question: "Are you compliant with industry security standards?",
+      answer: "Absolutely. We adhere to strict security protocols and are fully compliant with major industry standards including SOC 2, HIPAA, and GDPR to ensure your data is always protected."
+    }
+  ];
+
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <section id="faq" className="py-24 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeIn className="text-center mb-16">
+          <h2 className="text-brand-600 font-bold tracking-wide uppercase text-sm mb-3">FAQ</h2>
+          <h3 className="text-4xl font-display font-extrabold text-slate-900 mb-6">Frequently Asked Questions</h3>
+          <p className="text-xl text-slate-600">Everything you need to know about partnering with BIG ONE IT.</p>
+        </FadeIn>
+
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <FadeIn key={index} delay={index * 0.1}>
+              <div 
+                className={`border rounded-2xl overflow-hidden transition-colors ${openIndex === index ? 'border-brand-600 bg-brand-50/50' : 'border-slate-200 bg-white hover:border-brand-300'}`}
+              >
+                <button 
+                  className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none"
+                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                >
+                  <span className="font-bold text-slate-900 pr-8">{faq.question}</span>
+                  {openIndex === index ? (
+                    <Minus className="w-5 h-5 text-brand-600 flex-shrink-0" />
+                  ) : (
+                    <Plus className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                  )}
+                </button>
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="px-6 pb-5 text-slate-600">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Newsletter = () => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("loading");
+    // Simulate API call
+    setTimeout(() => {
+      setStatus("success");
+      setEmail("");
+      setTimeout(() => setStatus("idle"), 3000);
+    }, 1000);
+  };
+
+  return (
+    <section className="py-12 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeIn>
+          <div className="bg-slate-900 rounded-3xl p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+            {/* Background decoration */}
+            <div className="absolute top-0 right-0 w-full h-full overflow-hidden -z-10">
+              <div className="absolute top-[-50%] right-[-10%] w-96 h-96 bg-brand-600/30 rounded-full blur-3xl"></div>
+            </div>
+
+            <div className="md:w-1/2 text-center md:text-left z-10">
+              <h3 className="text-3xl font-display font-extrabold text-white mb-4">Stay Ahead of the Curve</h3>
+              <p className="text-slate-300 text-lg">Subscribe to our newsletter for the latest IT insights, cybersecurity alerts, and company updates.</p>
+            </div>
+
+            <div className="md:w-1/2 w-full z-10">
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-grow">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email address" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={status !== "idle"}
+                    className="w-full bg-slate-800/50 border border-slate-700 text-white rounded-xl pl-12 pr-4 py-4 focus:outline-none focus:ring-2 focus:ring-brand-500 disabled:opacity-50"
+                  />
+                </div>
+                <button 
+                  type="submit" 
+                  disabled={status !== "idle"}
+                  className="bg-brand-600 text-white font-bold px-8 py-4 rounded-xl hover:bg-brand-700 transition-colors whitespace-nowrap disabled:bg-brand-600/50 flex items-center justify-center min-w-[140px]"
+                >
+                  {status === "loading" ? (
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : status === "success" ? (
+                    <span className="flex items-center gap-2"><CheckCircle2 className="w-5 h-5" /> Subscribed</span>
+                  ) : (
+                    "Subscribe"
+                  )}
+                </button>
+              </form>
+              <p className="text-slate-400 text-sm mt-3 text-center md:text-left">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+};
+
 export default function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
@@ -1051,7 +1196,9 @@ export default function App() {
         <FadeIn><Testimonials /></FadeIn>
         <FadeIn><Insights /></FadeIn>
         <FadeIn><Careers /></FadeIn>
+        <FAQ />
         <ContactUs />
+        <Newsletter />
         <FadeIn><CTA /></FadeIn>
       </main>
       <Footer />
